@@ -6,6 +6,14 @@ SELECT ?vehicle WHERE {
   FILTER(?year > 2015)
 }
 
+# Wrong
+
+SELECT ?vehicle WHERE {
+  ?vehicle a dbo:Automobile .
+  ?vehicle dbo:prodStartYear ?year .
+  FILTER(?year > 2015)
+}
+
 # 2. Obtener películas dirigidas por Christopher Nolan que duran más de 120 minutos
 SELECT ?movie WHERE {
   ?movie a dbo:Film .
@@ -13,6 +21,15 @@ SELECT ?movie WHERE {
   ?movie dbo:director dbr:Christopher_Nolan .
   FILTER (?runtime > 120) 
 }
+
+Wrong:
+SELECT ?movie WHERE {
+  ?movie a dbo:Movie .
+  ?movie dbo:runtime ?runtime .
+  ?movie dbo:director dbr:Christopher_Nolan .
+  FILTER (?runtime > 120) 
+}
+
 
 # 3. Obtener libros escritos por J.K. Rowling de mas de 300 páginas
 SELECT ?book WHERE {
