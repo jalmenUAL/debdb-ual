@@ -1,0 +1,161 @@
+# 1. Obtener personas nacidas en 1990
+SELECT ?person WHERE {
+  ?person a dbo:Person .
+  ?person dbo:birthDate ?birthDate .
+  FILTER(YEAR(?birthDate) = 1990)
+}
+
+# 2. Obtener películas dirigidas por Christopher Nolan
+SELECT ?movie WHERE {
+  ?movie a dbo:Film .
+  ?movie dbo:director dbr:Christopher_Nolan .
+}
+
+# 3. Obtener libros escritos por J.K. Rowling
+SELECT ?book WHERE {
+  ?book a dbo:Book .
+  ?book dbo:author dbr:J._K._Rowling .
+}
+
+# 4. Obtener ciudades con una población mayor a 1,000,000
+SELECT ?city WHERE {
+  ?city a dbo:City .
+  ?city dbo:populationTotal ?population .
+  FILTER(?population > 1000000)
+}
+
+# 5. Obtener países donde el español es un idioma oficial
+SELECT ?country WHERE {
+  ?country a dbo:Country .
+  ?country dbo:officialLanguage dbr:Spanish_language .
+}
+
+# 6. Obtener empresas fundadas después del año 2000
+SELECT ?company WHERE {
+  ?company a dbo:Company .
+  ?company dbo:foundingYear ?year .
+  FILTER(?year > 2000)
+}
+
+# 7. Obtener ríos con una longitud mayor a 1000 km
+SELECT ?river WHERE {
+  ?river a dbo:River .
+  ?river dbo:length ?length .
+  FILTER(?length > 1000)
+}
+
+# 8. Obtener montañas con una altura mayor a 5000 metros
+SELECT ?mountain WHERE {
+  ?mountain a dbo:Mountain .
+  ?mountain dbo:elevation ?elevation .
+  FILTER(?elevation > 5000)
+}
+
+# 9. Obtener bandas de rock activas después del 2010
+SELECT ?band WHERE {
+  ?band a dbo:Band .
+  ?band dbo:activeYearsEndDate ?endYear .
+  FILTER(?endYear > 2010)
+}
+
+# 10. Obtener universidades fundadas antes del 1900
+SELECT ?university WHERE {
+  ?university a dbo:University .
+  ?university dbo:foundingYear ?year .
+  FILTER(?year < 1900)
+}
+
+# 11. Obtener museos en París
+SELECT ?museum WHERE {
+  ?museum a dbo:Museum .
+  ?museum dbo:location dbr:Paris .
+}
+
+# 12. Obtener aeropuertos en Alemania
+SELECT ?airport WHERE {
+  ?airport a dbo:Airport .
+  ?airport dbo:location dbr:Germany .
+}
+
+# 13. Obtener novelas publicadas en 2020
+SELECT ?novel WHERE {
+  ?novel a dbo:WrittenWork .
+  ?novel dbo:publicationDate ?date .
+  FILTER(YEAR(?date) = 2020)
+}
+
+# 14. Obtener actores nacidos en Londres
+SELECT ?actor WHERE {
+  ?actor a dbo:Actor .
+  ?actor dbo:birthPlace dbr:London .
+}
+
+# 15. Obtener atletas olímpicos de Brasil
+SELECT ?athlete WHERE {
+  ?athlete a dbo:Athlete .
+  ?athlete dbo:nationality dbr:Brazil .
+}
+
+# 16. Obtener periódicos publicados en inglés
+SELECT ?newspaper WHERE {
+  ?newspaper a dbo:Newspaper .
+  ?newspaper dbo:language dbr:English_language .
+}
+
+# 17. Obtener islas con una superficie mayor a 1000 km²
+SELECT ?island WHERE {
+  ?island a dbo:Island .
+  ?island dbo:areaTotal ?area .
+  FILTER(?area > 1000)
+}
+
+# 18. Obtener compañías de tecnología fundadas en EE.UU.
+SELECT ?company WHERE {
+  ?company a dbo:Company .
+  ?company dbo:industry dbr:Technology_industry .
+  ?company dbo:locationCountry dbr:United_States .
+}
+
+# 19. Obtener escritores nacidos en Rusia
+SELECT ?writer WHERE {
+  ?writer a dbo:Writer .
+  ?writer dbo:birthPlace dbr:Russia .
+}
+
+# 20. Obtener equipos de fútbol de Italia
+SELECT ?team WHERE {
+  ?team a dbo:SoccerClub .
+  ?team dbo:league dbr:Serie_A .
+}
+
+# 21. Obtener programas de televisión emitidos en 2015
+SELECT ?show WHERE {
+  ?show a dbo:TelevisionShow .
+  ?show dbo:releaseDate ?date .
+  FILTER(YEAR(?date) = 2015)
+}
+
+# 22. Obtener lenguajes de programación creados antes del 2000
+SELECT ?language WHERE {
+  ?language a dbo:ProgrammingLanguage .
+  ?language dbo:year ?year .
+  FILTER(?year < 2000)
+}
+
+# 23. Obtener especies de mamíferos
+SELECT ?species WHERE {
+  ?species a dbo:Mammal .
+}
+
+# 24. Obtener arquitectos nacidos en España
+SELECT ?architect WHERE {
+  ?architect a dbo:Architect .
+  ?architect dbo:birthPlace dbr:Spain .
+}
+
+# 25. Obtener videojuegos lanzados en 2021
+SELECT ?game WHERE {
+  ?game a dbo:VideoGame .
+  ?game dbo:releaseDate ?date .
+  FILTER(YEAR(?date) = 2021)
+}
