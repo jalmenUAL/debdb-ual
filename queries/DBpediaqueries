@@ -6,16 +6,20 @@ SELECT ?vehicle WHERE {
   FILTER(?year > 2015)
 }
 
-# 2. Obtener películas dirigidas por Christopher Nolan
+# 2. Obtener películas dirigidas por Christopher Nolan que duran más de 120 minutos
 SELECT ?movie WHERE {
   ?movie a dbo:Film .
+  ?movie dbo:runtime ?runtime .
   ?movie dbo:director dbr:Christopher_Nolan .
+  FILTER (?runtime > 120) 
 }
 
-# 3. Obtener libros escritos por J.K. Rowling
+# 3. Obtener libros escritos por J.K. Rowling de mas de 300 páginas
 SELECT ?book WHERE {
   ?book a dbo:Book .
   ?book dbo:author dbr:J._K._Rowling .
+  ?book dbo:numberOfPages ?pages .
+  FILTER (?pages > 300)
 }
 
 # 4. Obtener ciudades con una población mayor a 1,000,000
@@ -25,10 +29,12 @@ SELECT ?city WHERE {
   FILTER(?population > 1000000)
 }
 
-# 5. Obtener países donde el español es un idioma oficial
+# 5. Obtener países donde el español es un idioma oficial con mas de un millón de habitantes
 SELECT ?country WHERE {
   ?country a dbo:Country .
   ?country dbo:officialLanguage dbr:Spanish_language .
+  ?country dbo:population ?population .
+  FILTER (?population > 1000000) 
 }
 
 # 6. Obtener empresas fundadas después del año 2000
@@ -70,36 +76,48 @@ SELECT ?university WHERE {
 SELECT ?museum WHERE {
   ?museum a dbo:Museum .
   ?museum dbo:location dbr:Paris .
+  ?museum dbo:visitorsPerYear ?visitors .  # 
+  FILTER (?visitors > 100000)  
 }
 
 # 12. Obtener aeropuertos en Alemania
 SELECT ?airport WHERE {
   ?airport a dbo:Airport .
   ?airport dbo:location dbr:Germany .
+  ?airport dbo:elevation ?elevation .   
+  FILTER (?elevation > 500)  
 }
 
 # 13. Obtener festivales de música celebrados en Reino Unido
 SELECT ?festival WHERE {
   ?festival a dbo:MusicFestival .
   ?festival dbo:location dbr:United_Kingdom .
+  ?festival dbo:attendance ?attendance .   
+  FILTER (?attendance > 10000)  
 }
 
 # 14. Obtener actores nacidos en Londres
 SELECT ?actor WHERE {
   ?actor a dbo:Actor .
   ?actor dbo:birthPlace dbr:London .
+  ?actor dbo:height ?height .  
+  FILTER (?height > 1.75) 
 }
 
 # 15. Obtener atletas olímpicos de Brasil
 SELECT ?athlete WHERE {
   ?athlete a dbo:Athlete .
   ?athlete dbo:nationality dbr:Brazil .
+  ?athlete dbo:height ?height .  
+  FILTER (?height > 1.80) 
 }
 
 # 16. Obtener periódicos publicados en inglés
 SELECT ?newspaper WHERE {
   ?newspaper a dbo:Newspaper .
   ?newspaper dbo:language dbr:English_language .
+  ?newspaper dbo:circulation ?circulation .  
+  FILTER (?circulation > 100000)  
 }
 
 # 17. Obtener islas con una superficie mayor a 1000 km²
@@ -114,24 +132,46 @@ SELECT ?company WHERE {
   ?company a dbo:Company .
   ?company dbo:industry dbr:Technology_industry .
   ?company dbo:locationCountry dbr:United_States .
+  ?company dbo:numberOfEmployees ?employees .   
+  ?company dbo:revenue ?revenue .   
+  ?company dbo:foundingYear ?foundingYear .  
+  FILTER (?employees > 10000 && ?revenue > 100000000 && ?foundingYear < 2000)  
 }
 
 # 19. Obtener escritores nacidos en Rusia
 SELECT ?writer WHERE {
   ?writer a dbo:Writer .
   ?writer dbo:birthPlace dbr:Russia .
+  ?writer dbo:deathPlace ?deathPlace .  
+  ?writer dbo:nationality ?nationality .  
+  ?writer dbo:numberOfBooks ?numberOfBooks .   
+  FILTER (?numberOfBooks > 10)  
 }
 
 # 20. Obtener equipos de fútbol de Italia
 SELECT ?team WHERE {
   ?team a dbo:SoccerClub .
   ?team dbo:league dbr:Serie_A .
+  ?team dbo:ground ?ground .   
+  ?team dbo:location  dbr:Rome .   
+  ?team dbo:country dbr:Italy .  
+  ?ground dbo:capacity ?capacity .  
+  FILTER (?capacity > 50000)  
+ 
 }
 
 # 21. Obtener planetas del sistema solar
 SELECT ?planet WHERE {
   ?planet a dbo:Planet .
   ?planet dbo:locatedInSystem dbr:Solar_System .
+  ?planet dbo:mass ?mass .      
+  ?planet dbo:meanRadius ?radius .   
+  ?planet dbo:orbitalPeriod ?period .  
+  ?planet dbo:surfaceGravity ?gravity . 
+  FILTER (?mass > 1E24)          
+  FILTER (?radius < 100000000)   
+  FILTER (?period > 80)  
+  FILTER (?gravity > 5)  
 }
 
 # 22. Obtener lenguajes de programación creados antes del 2000
@@ -144,6 +184,14 @@ SELECT ?language WHERE {
 # 23. Obtener especies de mamíferos
 SELECT ?species WHERE {
   ?species a dbo:Mammal .
+  ?species dbo:averageLifespan ?lifespan .  
+  ?species dbo:maximumWeight ?weight .   
+  ?species dbo:gestationPeriod ?gestation .  
+  ?species dbo:numberOfOffspring ?offspring .  
+  FILTER (?lifespan > 10)          
+  FILTER (?weight < 2000)          
+  FILTER (?gestation > 50)        
+  FILTER (?offspring > 1) 
 }
 
 # 24. Obtener arquitectos nacidos en España
@@ -152,10 +200,18 @@ SELECT ?architect WHERE {
   ?architect dbo:birthPlace dbr:Spain .
 }
 
-# 25. Obtener escritores franceses
-SELECT ?writer WHERE {
-  ?writer a dbo:Writer .
-  ?writer dbo:nationality dbr:France .
+# 25. Obtener escritores españoles
+SELECT ?architect WHERE {
+  ?architect a dbo:Architect .
+  ?architect dbo:birthPlace dbr:Spain .
+  ?architect dbo:height ?height .        
+  ?architect dbo:activePeriodStartYear ?startYear .  
+  ?architect dbo:numberOfProjects ?projects .  
+  
+  FILTER (?height > 1.70)        
+  FILTER (?startYear > 1950)       
+  FILTER (?projects > 5)  
+  FILTER (YEAR(?deathDate) < 2000)  
 }
 
 # 26. Películas con duración mayor a 120 minutos, director, país de producción y género
