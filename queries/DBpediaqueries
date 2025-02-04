@@ -1,4 +1,6 @@
-# 1. SELECT ?vehicle WHERE {
+# 1. Obtener vehículos eléctricos producidos después de 2015
+
+SELECT ?vehicle WHERE {
   ?vehicle a dbo:Automobile .
   ?vehicle dbo:productionStartYear ?year .
   FILTER(?year > 2015)
