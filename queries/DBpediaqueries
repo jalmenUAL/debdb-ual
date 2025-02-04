@@ -1,8 +1,7 @@
-# 1. Obtener personas nacidas en 1990
-SELECT ?person WHERE {
-  ?person a dbo:Person .
-  ?person dbo:birthDate ?birthDate .
-  FILTER(YEAR(?birthDate) = 1990)
+# 1. SELECT ?vehicle WHERE {
+  ?vehicle a dbo:Automobile .
+  ?vehicle dbo:productionStartYear ?year .
+  FILTER(?year > 2015)
 }
 
 # 2. Obtener películas dirigidas por Christopher Nolan
@@ -77,11 +76,10 @@ SELECT ?airport WHERE {
   ?airport dbo:location dbr:Germany .
 }
 
-# 13. Obtener novelas publicadas en 2020
-SELECT ?novel WHERE {
-  ?novel a dbo:WrittenWork .
-  ?novel dbo:publicationDate ?date .
-  FILTER(YEAR(?date) = 2020)
+# 13. Obtener festivales de música celebrados en Reino Unido
+SELECT ?festival WHERE {
+  ?festival a dbo:MusicFestival .
+  ?festival dbo:location dbr:United_Kingdom .
 }
 
 # 14. Obtener actores nacidos en Londres
@@ -128,11 +126,10 @@ SELECT ?team WHERE {
   ?team dbo:league dbr:Serie_A .
 }
 
-# 21. Obtener programas de televisión emitidos en 2015
-SELECT ?show WHERE {
-  ?show a dbo:TelevisionShow .
-  ?show dbo:releaseDate ?date .
-  FILTER(YEAR(?date) = 2015)
+# 21. Obtener planetas del sistema solar
+SELECT ?planet WHERE {
+  ?planet a dbo:Planet .
+  ?planet dbo:locatedInSystem dbr:Solar_System .
 }
 
 # 22. Obtener lenguajes de programación creados antes del 2000
@@ -153,9 +150,58 @@ SELECT ?architect WHERE {
   ?architect dbo:birthPlace dbr:Spain .
 }
 
-# 25. Obtener videojuegos lanzados en 2021
-SELECT ?game WHERE {
-  ?game a dbo:VideoGame .
-  ?game dbo:releaseDate ?date .
-  FILTER(YEAR(?date) = 2021)
+# 25. Obtener escritores franceses
+SELECT ?writer WHERE {
+  ?writer a dbo:Writer .
+  ?writer dbo:nationality dbr:France .
 }
+
+# 26. Películas con duración mayor a 120 minutos, director, país de producción y género
+SELECT ?film ?duration ?director ?country ?genre WHERE {
+  ?film a dbo:Film .
+  ?film dbo:runtime ?duration .
+  ?film dbo:director ?director .
+  ?film dbo:country ?country .
+  ?film dbo:genre ?genre .
+  ?director foaf:name ?directorName .
+  FILTER(?duration > 120)
+}
+
+# 27. Rascacielos con más de 300 metros de altura y ubicación
+SELECT ?skyscraper ?height ?location WHERE {
+  ?skyscraper a dbo:Skyscraper .
+  ?skyscraper dbo:height ?height .
+  ?skyscraper dbo:location ?location .
+  ?location rdfs:label ?locationName .
+  FILTER(?height > 300)
+}
+
+# 28. Películas con duración mayor a 120 minutos y género
+
+SELECT ?film ?duration ?genre WHERE {
+  ?film a dbo:Film .
+  ?film dbo:runtime ?duration .
+  ?film dbo:genre ?genre .
+  ?genre rdfs:label ?genreName .
+  FILTER(?duration > 120)
+}
+
+# 29. Empresas fundadas después del 2000 con sede y fundador
+
+SELECT ?company ?founder ?headquarters WHERE {
+  ?company a dbo:Company .
+  ?company dbo:foundingYear ?year .
+  ?company dbo:founder ?founder .
+  ?company dbo:headquarter ?headquarters .
+  FILTER(?year > 2000)
+}
+
+# 30. Países con área mayor a 1 millón de km² y continente
+SELECT ?country ?area ?continent WHERE {
+  ?country a dbo:Country .
+  ?country dbo:areaTotal ?area .
+  ?country dbo:continent ?continent .
+  ?continent rdfs:label ?continentName .
+  FILTER(?area > 1000000)
+}
+
