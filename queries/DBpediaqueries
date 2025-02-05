@@ -88,7 +88,7 @@ SELECT ?river WHERE {
   ?river a dbo:River .
   ?river dbo:length ?length .
   ?river geo:lat ?lat
-  FILTER(?length > 10000) .
+  FILTER(?length > 100000) .
 FILTER(?lat <= 90)
 }
 
@@ -134,54 +134,9 @@ SELECT * WHERE {
    ?museum geo:lat ?lat
 }
 
-# 12. Obtener aeropuertos en Alemania
-SELECT ?airport WHERE {
-  ?airport a dbo:Airport .
-  ?airport dbo:location dbr:Germany .
-  ?airport dbo:elevation ?elevation .   
-  FILTER (?elevation > 500)  
-}
+#Expected http://dbpedia.org/resource/Grand_Palais
 
-# 13. Obtener festivales de música celebrados en Reino Unido
-SELECT ?festival WHERE {
-  ?festival a dbo:MusicFestival .
-  ?festival dbo:location dbr:United_Kingdom .
-  ?festival dbo:attendance ?attendance .   
-  FILTER (?attendance > 10000)  
-}
-
-# 14. Obtener actores nacidos en Londres
-SELECT ?actor WHERE {
-  ?actor a dbo:Actor .
-  ?actor dbo:birthPlace dbr:London .
-  ?actor dbo:height ?height .  
-  FILTER (?height > 1.75) 
-}
-
-# 15. Obtener atletas olímpicos de Brasil
-SELECT ?athlete WHERE {
-  ?athlete a dbo:Athlete .
-  ?athlete dbo:nationality dbr:Brazil .
-  ?athlete dbo:height ?height .  
-  FILTER (?height > 1.80) 
-}
-
-# 16. Obtener periódicos publicados en inglés
-SELECT ?newspaper WHERE {
-  ?newspaper a dbo:Newspaper .
-  ?newspaper dbo:language dbr:English_language .
-  ?newspaper dbo:circulation ?circulation .  
-  FILTER (?circulation > 100000)  
-}
-
-# 17. Obtener islas con una superficie mayor a 1000 km²
-SELECT ?island WHERE {
-  ?island a dbo:Island .
-  ?island dbo:areaTotal ?area .
-  FILTER(?area > 1000)
-}
-
-# 18. Obtener compañías de tecnología fundadas en EE.UU.
+# 12. Obtener compañías de tecnología fundadas en EE.UU.
 SELECT ?company WHERE {
   ?company a dbo:Company .
   ?company dbo:industry dbr:Technology_industry .
@@ -192,29 +147,10 @@ SELECT ?company WHERE {
   FILTER (?employees > 10000 && ?revenue > 100000000 && ?foundingYear < 2000)  
 }
 
-# 19. Obtener escritores nacidos en Rusia
-SELECT ?writer WHERE {
-  ?writer a dbo:Writer .
-  ?writer dbo:birthPlace dbr:Russia .
-  ?writer dbo:deathPlace ?deathPlace .  
-  ?writer dbo:nationality ?nationality .  
-  ?writer dbo:numberOfBooks ?numberOfBooks .   
-  FILTER (?numberOfBooks > 10)  
-}
+#Expected http://dbpedia.org/resource/IBM
 
-# 20. Obtener equipos de fútbol de Italia
-SELECT ?team WHERE {
-  ?team a dbo:SoccerClub .
-  ?team dbo:league dbr:Serie_A .
-  ?team dbo:ground ?ground .   
-  ?team dbo:location  dbr:Rome .   
-  ?team dbo:country dbr:Italy .  
-  ?ground dbo:capacity ?capacity .  
-  FILTER (?capacity > 50000)  
- 
-}
 
-# 21. Obtener planetas del sistema solar
+# 13. Obtener planetas del sistema solar
 SELECT ?planet WHERE {
   ?planet a dbo:Planet .
   ?planet dbo:locatedInSystem dbr:Solar_System .
@@ -228,14 +164,10 @@ SELECT ?planet WHERE {
   FILTER (?gravity > 5)  
 }
 
-# 22. Obtener lenguajes de programación creados antes del 2000
-SELECT ?language WHERE {
-  ?language a dbo:ProgrammingLanguage .
-  ?language dbo:year ?year .
-  FILTER(?year < 2000)
-}
+#Expected http://dbpedia.org/resource/Saturn
 
-# 23. Obtener especies de mamíferos
+
+# 14. Obtener especies de mamíferos
 SELECT ?species WHERE {
   ?species a dbo:Mammal .
   ?species dbo:averageLifespan ?lifespan .  
@@ -248,72 +180,7 @@ SELECT ?species WHERE {
   FILTER (?offspring > 1) 
 }
 
-# 24. Obtener arquitectos nacidos en España
-SELECT ?architect WHERE {
-  ?architect a dbo:Architect .
-  ?architect dbo:birthPlace dbr:Spain .
-}
+#Expected http://dbpedia.org/resource/Camel
 
-# 25. Obtener escritores españoles
-SELECT ?architect WHERE {
-  ?architect a dbo:Architect .
-  ?architect dbo:birthPlace dbr:Spain .
-  ?architect dbo:height ?height .        
-  ?architect dbo:activePeriodStartYear ?startYear .  
-  ?architect dbo:numberOfProjects ?projects .  
-  
-  FILTER (?height > 1.70)        
-  FILTER (?startYear > 1950)       
-  FILTER (?projects > 5)  
-  FILTER (YEAR(?deathDate) < 2000)  
-}
-
-# 26. Películas con duración mayor a 120 minutos, director, país de producción y género
-SELECT ?film ?duration ?director ?country ?genre WHERE {
-  ?film a dbo:Film .
-  ?film dbo:runtime ?duration .
-  ?film dbo:director ?director .
-  ?film dbo:country ?country .
-  ?film dbo:genre ?genre .
-  ?director foaf:name ?directorName .
-  FILTER(?duration > 120)
-}
-
-# 27. Rascacielos con más de 300 metros de altura y ubicación
-SELECT ?skyscraper ?height ?location WHERE {
-  ?skyscraper a dbo:Skyscraper .
-  ?skyscraper dbo:height ?height .
-  ?skyscraper dbo:location ?location .
-  ?location rdfs:label ?locationName .
-  FILTER(?height > 300)
-}
-
-# 28. Películas con duración mayor a 120 minutos y género
-
-SELECT ?film ?duration ?genre WHERE {
-  ?film a dbo:Film .
-  ?film dbo:runtime ?duration .
-  ?film dbo:genre ?genre .
-  ?genre rdfs:label ?genreName .
-  FILTER(?duration > 120)
-}
-
-# 29. Empresas fundadas después del 2000 con sede y fundador
-
-SELECT ?company ?founder ?headquarters WHERE {
-  ?company a dbo:Company .
-  ?company dbo:foundingYear ?year .
-  ?company dbo:founder ?founder .
-  ?company dbo:headquarter ?headquarters .
-  FILTER(?year > 2000)
-}
-
-# 30. Países con área mayor a 1 millón de km² y continente
-SELECT ?country ?area ?continent WHERE {
-  ?country a dbo:Country .
-  ?country dbo:areaTotal ?area .
-  ?country dbo:continent ?continent .
-  ?continent rdfs:label ?continentName .
-  FILTER(?area > 1000000)
-}
-
+ 
+ 
