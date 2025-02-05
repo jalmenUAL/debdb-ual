@@ -3,7 +3,7 @@
 SELECT ?vehicle WHERE {
   ?vehicle a dbo:Automobile .
   ?vehicle dbo:length ?length .
-  ?vehicle dbo:manufacturer	dbr:SEAT
+  ?vehicle dbo:manufacturer	dbr:SET
   FILTER(?length > 4)
 }
 
@@ -13,7 +13,7 @@ SELECT ?vehicle WHERE {
 SELECT ?movie WHERE {
   ?movie a dbo:Film .
   ?movie dbo:runtime ?runtime .
-  ?movie dbo:director dbr:Christopher_Nolan .
+  ?movie dbo:director dbr:ChristopherNolan .
   FILTER (?runtime > 120) 
 }
 
