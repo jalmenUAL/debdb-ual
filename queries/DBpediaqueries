@@ -1,18 +1,22 @@
-# 1. Obtener vehículos eléctricos producidos después de 2015
+# 1. Obtener vehículos seat de mas de 4 metros
 
 SELECT ?vehicle WHERE {
   ?vehicle a dbo:Automobile .
-  ?vehicle dbo:productionStartYear ?year .
-  FILTER(?year > 2015)
+  ?vehicle dbo:length ?length .
+  ?vehicle dbo:manufacturer	dbr:SEAT
+  FILTER(?length > 4)
 }
 
 # Wrong
 
 SELECT ?vehicle WHERE {
   ?vehicle a dbo:Automobile .
-  ?vehicle dbo:prodStartYear ?year .
-  FILTER(?year > 2015)
+  ?vehicle dbo:length ?length .
+  ?vehicle dbo:manufacturer	dbr:SET
+  FILTER(?length > 4)
 }
+
+#Expected http://dbpedia.org/resource/SEAT_1400
 
 # 2. Obtener películas dirigidas por Christopher Nolan que duran más de 120 minutos
 SELECT ?movie WHERE {
