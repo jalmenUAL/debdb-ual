@@ -26,6 +26,16 @@ SELECT ?movie WHERE {
   FILTER (?runtime > 120) 
 }
 
+#Wrong: 
+
+SELECT ?movie WHERE {
+  ?movie a dbo:Film .
+  ?movie dbo:runtime ?runtime .
+  ?movie dbo:director dbr:ChristopherNolan .
+  FILTER (?runtime > 120) 
+}
+
+#Expected http://dbpedia.org/resource/Inception
 
 # 3. Obtener libros escritos por J.K. Rowling de mas de 300 páginas
 SELECT ?book WHERE {
@@ -35,6 +45,10 @@ SELECT ?book WHERE {
   FILTER (?pages > 300)
 }
 
+#Expected http://dbpedia.org/resource/Harry_Potter_and_the_Goblet_of_Fire
+#Unexpected http://dbpedia.org/resource/Harry_Potter_and_the_Goblet_of_Fire and http://dbpedia.org/resource/Harry_Potter_and_the_Deathly_Hallows
+
+
 # 4. Obtener ciudades con una población mayor a 1,000,000
 SELECT ?city WHERE {
   ?city a dbo:City .
@@ -42,55 +56,82 @@ SELECT ?city WHERE {
   FILTER(?population > 1000000)
 }
 
+#Unexpected http://dbpedia.org/resource/Copenhagen
+
+
 # 5. Obtener países donde el español es un idioma oficial con mas de un millón de habitantes
 SELECT ?country WHERE {
   ?country a dbo:Country .
   ?country dbo:officialLanguage dbr:Spanish_language .
-  ?country dbo:population ?population .
+  ?country dbo:populationTotal ?population .
   FILTER (?population > 1000000) 
 }
 
-# 6. Obtener empresas fundadas después del año 2000
+#Expected: http://dbpedia.org/resource/Spain
+
+# 6. Obtener empresas de software informatico fundadas después del año 2000 y menos de 1000 empleados
 SELECT ?company WHERE {
   ?company a dbo:Company .
+?company dbo:industry	dbr:Information_technology .
   ?company dbo:foundingYear ?year .
-  FILTER(?year > 2000)
+?company dbo:product	dbr:Software .
+?company dbo:numberOfEmployees ?employee .
+  FILTER(?year > 2000) 
+FILTER(?employee < 1000)
 }
 
-# 7. Obtener ríos con una longitud mayor a 1000 km
+#Expected http://dbpedia.org/resource/IBM
+
+
+# 7. Obtener ríos con una longitud mayor a 1000 km y latitud por debajo de 90
 SELECT ?river WHERE {
   ?river a dbo:River .
   ?river dbo:length ?length .
-  FILTER(?length > 1000)
+  ?river geo:lat ?lat
+  FILTER(?length > 10000) .
+FILTER(?lat <= 90)
 }
 
-# 8. Obtener montañas con una altura mayor a 5000 metros
+#Expected http://dbpedia.org/resource/Guadalquivir
+
+# 8. Obtener montañas de Peru con una altura mayor a 5000 metros
 SELECT ?mountain WHERE {
   ?mountain a dbo:Mountain .
   ?mountain dbo:elevation ?elevation .
+?mountain dbo:locatedInArea	dbr:Peru
   FILTER(?elevation > 5000)
 }
 
-# 9. Obtener bandas de rock activas después del 2010
+#Expected http://dbpedia.org/resource/Iztaccihuatl
+
+# 9. Obtener bandas de rock de Liverpool de música rock
 SELECT ?band WHERE {
   ?band a dbo:Band .
-  ?band dbo:activeYearsEndDate ?endYear .
-  FILTER(?endYear > 2010)
+  ?band  dbo:hometown	dbr:Liverpool .
+?band dbo:genre dbr:Rock_music
 }
+
+# Unexpected http://dbpedia.org/resource/The_Beatles
+
 
 # 10. Obtener universidades fundadas antes del 1900
 SELECT ?university WHERE {
   ?university a dbo:University .
-  ?university dbo:foundingYear ?year .
-  FILTER(?year < 1900)
+ ?university dbo:country	
+dbr:Germany .
+  ?university dbo:numberOfStudents ?students .
+  FILTER(?students < 500)
 }
 
-# 11. Obtener museos en París
-SELECT ?museum WHERE {
+#Expected http://dbpedia.org/resource/Technical_University_of_Munich
+#Unexpected http://dbpedia.org/resource/University_of_Bonn
+
+# 11. Obtener museos en París, sus visitantes y latitud
+SELECT * WHERE {
   ?museum a dbo:Museum .
   ?museum dbo:location dbr:Paris .
-  ?museum dbo:visitorsPerYear ?visitors .  # 
-  FILTER (?visitors > 100000)  
+?museum dbo:numberOfVisitors ?visitors .
+   ?museum geo:lat ?lat
 }
 
 # 12. Obtener aeropuertos en Alemania
