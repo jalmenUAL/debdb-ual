@@ -31,17 +31,10 @@ SELECT ?book WHERE {
 #Unexpected http://dbpedia.org/resource/Harry_Potter_and_the_Goblet_of_Fire and http://dbpedia.org/resource/Harry_Potter_and_the_Deathly_Hallows
 
 
-# 4. Obtener ciudades con una población mayor a 1,000,000
-SELECT ?city WHERE {
-  ?city a dbo:City .
-  ?city dbo:populationTotal ?population .
-  FILTER(?population > 1000000)
-}
-
-#Unexpected http://dbpedia.org/resource/Copenhagen
+  
 
 
-# 5. Obtener países donde el español es un idioma oficial con mas de un millón de habitantes
+# 4. Obtener países donde el español es un idioma oficial con mas de un millón de habitantes
 SELECT ?country WHERE {
   ?country a dbo:Country .
   ?country dbo:officialLanguage dbr:Spanish_language .
@@ -51,7 +44,7 @@ SELECT ?country WHERE {
 
 #Expected: http://dbpedia.org/resource/Spain
 
-# 6. Obtener empresas de software informatico fundadas después del año 2000 y menos de 1000 empleados
+# 5. Obtener empresas de software informatico fundadas después del año 2000 y menos de 1000 empleados
 SELECT ?company WHERE {
   ?company a dbo:Company .
 ?company dbo:industry	dbr:Information_technology .
@@ -65,7 +58,7 @@ FILTER(?employee < 1000)
 #Expected http://dbpedia.org/resource/IBM
 
 
-# 7. Obtener ríos con una longitud mayor a 1000 km y latitud por debajo de 90
+# 6. Obtener ríos con una longitud mayor a 1000 km y latitud por debajo de 90
 SELECT ?river WHERE {
   ?river a dbo:River .
   ?river dbo:length ?length .
@@ -76,7 +69,7 @@ FILTER(?lat <= 90)
 
 #Expected http://dbpedia.org/resource/Guadalquivir
 
-# 8. Obtener montañas de Peru con una altura mayor a 5000 metros
+# 7. Obtener montañas de Peru con una altura mayor a 5000 metros
 SELECT ?mountain WHERE {
   ?mountain a dbo:Mountain .
   ?mountain dbo:elevation ?elevation .
@@ -86,17 +79,17 @@ SELECT ?mountain WHERE {
 
 #Expected http://dbpedia.org/resource/Iztaccihuatl
 
-# 9. Obtener bandas de rock de Liverpool de música rock
+# 8. Obtener bandas de rock de Liverpool de música rock
 SELECT ?band WHERE {
   ?band a dbo:Band .
   ?band  dbo:hometown	dbr:Liverpool .
-?band dbo:genre dbr:Rock_music
+?band dbo:genre dbr:Jazz_music
 }
 
 # Unexpected http://dbpedia.org/resource/The_Beatles
 
 
-# 10. Obtener universidades fundadas antes del 1900
+# 9. Obtener universidades fundadas antes del 1900
 SELECT ?university WHERE {
   ?university a dbo:University .
  ?university dbo:country	
@@ -105,64 +98,47 @@ dbr:Germany .
   FILTER(?students < 500)
 }
 
-#Expected http://dbpedia.org/resource/Technical_University_of_Munich
-#Unexpected http://dbpedia.org/resource/University_of_Bonn
+#Expected http://dbpedia.org/resource/University_of_Bonn
+#Unexpected http://dbpedia.org/resource/Heidelberg_University_Faculty_of_Law
 
-# 11. Obtener museos en París, sus visitantes y latitud
-SELECT * WHERE {
+
+# 10. Obtener museos en París, sus visitantes y latitud
+SELECT ?museum WHERE {
   ?museum a dbo:Museum .
   ?museum dbo:location dbr:Paris .
 ?museum dbo:numberOfVisitors ?visitors .
    ?museum geo:lat ?lat
+FILTER(?lat > 50)
+FILTER(?visitors < 5000)
 }
 
 #Expected http://dbpedia.org/resource/Grand_Palais
 
-# 12. Obtener compañías de tecnología fundadas en EE.UU.
+# 11. Obtener compañías de tecnología fundadas en EE.UU.
 SELECT ?company WHERE {
-  ?company a dbo:Company .
-  ?company dbo:industry dbr:Technology_industry .
+  ?company a dbo:Company .   
   ?company dbo:locationCountry dbr:United_States .
   ?company dbo:numberOfEmployees ?employees .   
   ?company dbo:revenue ?revenue .   
   ?company dbo:foundingYear ?foundingYear .  
-  FILTER (?employees > 10000 && ?revenue > 100000000 && ?foundingYear < 2000)  
+  FILTER (?employees > 10000)
+  FILTER(?revenue > 100000000)
+  FILTER(?foundingYear < 2000)  
 }
 
-#Expected http://dbpedia.org/resource/IBM
+
+#Expected http://dbpedia.org/resource/Sony_Pictures
 
 
-# 13. Obtener planetas del sistema solar
+
+# 12. Obtener planetas del sistema solar
 SELECT ?planet WHERE {
   ?planet a dbo:Planet .
-  ?planet dbo:locatedInSystem dbr:Solar_System .
-  ?planet dbo:mass ?mass .      
-  ?planet dbo:meanRadius ?radius .   
-  ?planet dbo:orbitalPeriod ?period .  
-  ?planet dbo:surfaceGravity ?gravity . 
-  FILTER (?mass > 1E24)          
+?planet dbo:mass ?mass .     
+?planet dbo:meanRadius ?radius .   
+   FILTER (?mass > 1E24)          
   FILTER (?radius < 100000000)   
-  FILTER (?period > 80)  
-  FILTER (?gravity > 5)  
+ 
 }
 
-#Expected http://dbpedia.org/resource/Saturn
-
-
-# 14. Obtener especies de mamíferos
-SELECT ?species WHERE {
-  ?species a dbo:Mammal .
-  ?species dbo:averageLifespan ?lifespan .  
-  ?species dbo:maximumWeight ?weight .   
-  ?species dbo:gestationPeriod ?gestation .  
-  ?species dbo:numberOfOffspring ?offspring .  
-  FILTER (?lifespan > 10)          
-  FILTER (?weight < 2000)          
-  FILTER (?gestation > 50)        
-  FILTER (?offspring > 1) 
-}
-
-#Expected http://dbpedia.org/resource/Camel
-
- 
- 
+#Expected http://dbpedia.org/resource/Jupiter
