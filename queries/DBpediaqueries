@@ -18,17 +18,9 @@ SELECT ?vehicle WHERE {
 
 #Expected http://dbpedia.org/resource/SEAT_1400
 
-# 2. Obtener películas dirigidas por Christopher Nolan que duran más de 120 minutos
+# 2. Obtener películas dirigidas por Christopher Nolan que duran más de 120 minutos 
 SELECT ?movie WHERE {
   ?movie a dbo:Film .
-  ?movie dbo:runtime ?runtime .
-  ?movie dbo:director dbr:Christopher_Nolan .
-  FILTER (?runtime > 120) 
-}
-
-Wrong:
-SELECT ?movie WHERE {
-  ?movie a dbo:Movie .
   ?movie dbo:runtime ?runtime .
   ?movie dbo:director dbr:Christopher_Nolan .
   FILTER (?runtime > 120) 
