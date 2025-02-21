@@ -8,7 +8,7 @@ Here you can find:
 
 ### The code of the SWI-Prolog implementation of the debugger (file dbprex.pl)
 ### The code of the Web tool of the debugger (https://github.com/jalmenUAL/debdb)
-### The link to the Web tool page ([http://balmis.ual.es](http://balmisknows.ual.es/debdb)
+### The link to the Web tool page ([http://balmis.ual.es](http://balmisknows.ual.es/debdb))
 
 
 
