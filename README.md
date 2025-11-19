@@ -54,23 +54,6 @@ flowchart TD
 4. **Iteration:**  
    - Repeat until a valid weak rule is found or all rules are tested.
 
----
-
-## Usage
-
-1. **Run the Prolog debugger**:
-
-```bash
-swipl dbprex.pl
-```
-
-2. **Provide inputs** in the console:
-   - SPARQL query to debug  
-   - Sets of expected and unexpected answers
-
-3. **Optional:** Use the web tool for GUI-based debugging.
-
----
 
 ## References
 
