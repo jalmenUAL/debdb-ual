@@ -37,21 +37,24 @@ flowchart TD
 
 ### Step-by-Step Explanation
 
-1. **Weak Rule Construction:**  
+1. **Encoding of SPARQL**
+   - Builds a rule r from a SPARQL q 
+
+2. **Weak Rule Construction:**  
    - Build a set of weak rules `Weak(r)` and apply them to sets of expected and unexpected answers.
 
-2. **SPARQL Encoding:**  
+3. **SPARQL Encoding:**  
    - Each weak rule `wr` is encoded into three SPARQL queries:
      1. **Conjunctive query for expected answers**: Are all expected answers covered by `wr`?  
      2. **Disjunctive query for unexpected answers**: Does some unexpected answer match `wr`?  
      3. **Conjunctive query for unexpected answers**: Are all unexpected answers answers of `wr`?
 
-3. **Execution & Constraint Solving:**  
+4. **Execution & Constraint Solving:**  
    - **First query:** If success, obtain variable bindings and check satisfiability.  
    - **Second query:** If failure → accept rule; if success → execute third query.  
    - **Third query:** Check if negation of bindings is satisfiable. If yes → accept rule; else → try next weak rule.
 
-4. **Iteration:**  
+5. **Iteration:**  
    - Repeat until a valid weak rule is found or all rules are tested.
 
 
