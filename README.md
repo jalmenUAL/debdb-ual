@@ -10,7 +10,7 @@ This repository contains the debugger for **DBpedia SPARQL queries**. The debugg
 
 - **SWI-Prolog Implementation:** Core debugger implemented in Prolog (`dbprex.pl`).
 - **Web Tool:** Interactive web interface available [here](https://github.com/jalmenUAL/debdb).
-- **Web Tool Page:** Access the web tool online at [http://balmis.ual.es](http://balmis.ual.es).
+- **Web Tool Page:** Access the web tool online [here](http://dbt.ual.es/debdb).
 
 ---
 
